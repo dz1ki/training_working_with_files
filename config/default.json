@@ -13,5 +13,10 @@
   },
   "JWT": {
     "key": ""
+  },
+  "cloudinary": {
+    "name": "dm9t3c4sg",
+    "key": "",
+    "secret": ""
   }
 }

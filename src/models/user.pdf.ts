@@ -8,18 +8,18 @@ import {
 import { sequelize } from "./index";
 import { User } from "./user";
 
-export class DataUser extends Model<
-  InferAttributes<DataUser>,
-  InferCreationAttributes<DataUser>
+export class FilePDF extends Model<
+  InferAttributes<FilePDF>,
+  InferCreationAttributes<FilePDF>
 > {
   declare id: CreationOptional<number>;
   declare userId?: User;
-  declare image: string;
-  declare pdf: BinaryData;
+  declare name: string;
+  declare data: BinaryData;
   declare created_at: CreationOptional<Date>;
   declare updated_at: CreationOptional<Date>;
 }
-DataUser.init(
+FilePDF.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,17 +31,17 @@ DataUser.init(
       allowNull: true,
       field: "user_id",
     },
-    image: {
+    name: {
       type: new DataTypes.STRING(128),
     },
-    pdf: {
+    data: {
       type: new DataTypes.BLOB(),
     },
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE,
   },
   {
-    tableName: "data_user",
+    tableName: "files_pdf",
     sequelize,
     createdAt: "created_at",
     updatedAt: "updated_at",

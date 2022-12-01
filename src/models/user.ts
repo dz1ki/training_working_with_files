@@ -4,14 +4,19 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
+  NonAttribute,
 } from "sequelize";
 import { sequelize } from ".";
+import { FileImage } from "./user.images";
+import { FilePDF } from "./user.pdf";
 
 export class User extends Model<
   InferAttributes<User>,
   InferCreationAttributes<User>
 > {
   declare id: CreationOptional<number>;
+  declare images?: NonAttribute<FileImage[]>;
+  declare pdf?: NonAttribute<FilePDF[]>;
   declare password: string;
   declare firstName: string;
   declare lastName: string;

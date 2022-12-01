@@ -95,21 +95,52 @@ paths:
         500:
           description: Server error
 
-  /data/add_image:
+  /image_users/add_image:
     post:
+      security:
+        - bearerAuth: []
       tags:
-        - Data
+        - File Image
       summary: Uploads a file.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
+              $ref: "#/components/schemas/addImageUser"
+      responses:
+        200:
+          description: Succes
+        201:
+          description: Image save
+        400:
+          description: Image already exists
+        500:
+          description: Server error
 
+  /image_users/find_all:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - File Image
+      summary: Find all image user.
+      responses:
+        200:
+          description: Succes
+        500:
+          description: Server error
+
+  /user_pdf/generate:
+    post:
+      tags:
+        - File PDF
+      summary: Generate PDF from user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userPDFGenerate"
       responses:
         200:
           description: Succes
@@ -145,6 +176,7 @@ components:
           type: string
           description: User password
           example: "21dsa"
+
     authorizationUser:
       type: object
       required:
@@ -159,6 +191,7 @@ components:
           type: string
           description: Password user.
           example: 21dsa
+
     updateUser:
       type: object
       properties:
@@ -178,3 +211,38 @@ components:
           type: string
           description: User password
           example: "21dsa"
+
+    addImageUser:
+      required:
+        - fileName
+        - file
+      type: object
+      properties:
+        fileName:
+          type: string
+          description: Name image
+          example: My Image
+        file:
+          description: Only image
+          type: string
+          format: binary
+
+    userPDFGenerate:
+      required:
+        - fileName
+        - userEmail
+        - imageName
+      type: object
+      properties:
+        fileName:
+          type: string
+          description: File name
+          example: My PDF
+        userEmail:
+          type: string
+          description: User email.
+          example: pete7833@examples.com
+        imageName:
+          type: string
+          description: Picture saved in the database for this user.
+          example: My Image

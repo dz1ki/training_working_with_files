@@ -19,15 +19,18 @@
   "homepage": "https://github.com/dz1ki/training_working_with_files#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "cloudinary": "^1.32.0",
     "config": "^3.3.8",
     "express": "^4.18.2",
     "express-openapi-validator": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.13.0",
     "pg": "^8.8.0",
     "sequelize": "^6.25.8",
     "sequelize-cli": "^6.5.2",
     "sequelize-typescript": "^2.1.5",
+    "streamifier": "^0.1.1",
     "swagger-ui-express": "^4.6.0",
     "ts-node": "^10.9.1",
     "yamljs": "^0.3.0"
