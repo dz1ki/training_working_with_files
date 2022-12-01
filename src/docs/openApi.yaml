@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Authorization
-  description: Traninig-authorization .
+  title: Training
+  description: Working with files.
   version: 1.0.0
 servers:
   - url: http://localhost:3000
@@ -19,6 +19,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/registrationUser"
+
       responses:
         200:
           description: Succes
@@ -67,7 +68,7 @@ paths:
         - bearerAuth: []
       tags:
         - User
-      summary: update user .
+      summary: Update user .
       requestBody:
         required: true
         content:
@@ -88,7 +89,7 @@ paths:
         - bearerAuth: []
       tags:
         - User
-      summary: Delete user .
+      summary: Delete user.
       responses:
         200:
           description: Succes
@@ -144,6 +145,46 @@ paths:
       responses:
         200:
           description: Succes
+        201:
+          description: The document is generated and stored in the database
+        400:
+          description: File sweat with this name exists.
+        404:
+          description: Not found user or image
+        500:
+          description: Server error
+
+  /user_pdf/find_all:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - File PDF
+      summary: Find all PDF files user.
+      responses:
+        200:
+          description: Succes
+        500:
+          description: Server error
+
+  /user_pdf/find_one:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - File PDF
+      summary: Find all PDF files user.
+      parameters:
+        - in: query
+          name: fileName
+          schema:
+            type: string
+            example: My PDF
+          required: true
+          description: File name.
+      responses:
+        200:
+          description: Succes
         500:
           description: Server error
 
@@ -157,24 +198,26 @@ components:
     registrationUser:
       type: object
       required:
+        - firstName
+        - lastName
         - password
         - userEmail
       properties:
         firstName:
           type: string
-          description: User first name
+          description: User first name.
           example: Yra
         lastName:
           type: string
-          description: User last name
+          description: User last name.
           example: Stell
         userEmail:
           type: string
-          description: User email
+          description: User email.
           example: pete7833@examples.com
         password:
           type: string
-          description: User password
+          description: User password.
           example: "21dsa"
 
     authorizationUser:
@@ -185,7 +228,7 @@ components:
       properties:
         email:
           type: string
-          description: User email
+          description: User email.
           example: pete7833@examples.com
         password:
           type: string
@@ -194,22 +237,23 @@ components:
 
     updateUser:
       type: object
+      additionalProperties: false
       properties:
         firstName:
           type: string
-          description: User first name
+          description: User first name.
           example: Yra
         lastName:
           type: string
-          description: User last name
+          description: User last name.
           example: Stell
         newUserEmail:
           type: string
-          description: User email
+          description: User email.
           example: pete7833@examples.com
         password:
           type: string
-          description: User password
+          description: User password.
           example: "21dsa"
 
     addImageUser:
@@ -220,10 +264,10 @@ components:
       properties:
         fileName:
           type: string
-          description: Name image
+          description: Name image.
           example: My Image
         file:
-          description: Only image
+          description: Only image .jpg or .png
           type: string
           format: binary
 

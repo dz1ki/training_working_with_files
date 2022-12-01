@@ -1,21 +1,35 @@
 import * as PDFDocument from "pdfkit";
-//import * as streamifier from "streamifier";
 export async function generate(
   firstName,
   lastName,
   imageBuffer,
-  doc: PDFDocument
+  doc: PDFDocument,
+  dateFormatDDMMYYYY: string
 ) {
-  generateHeader(doc, imageBuffer);
+  generateHeader(doc);
+  generateBody(doc, firstName, lastName, imageBuffer);
+  generateRunningTitle(doc, dateFormatDDMMYYYY);
 }
-function generateHeader(doc, imageBuffer) {
+function generateHeader(doc) {
   doc
-    .image(imageBuffer, 50, 45, { width: 50 })
     .fillColor("#444444")
     .fontSize(20)
-    .text("ACME Inc.", 110, 57)
+    .text(`Test task working with files!`, 200, 57, { align: "midle" })
+    .moveDown();
+}
+function generateBody(doc, firstName, lastName, imageBuffer) {
+  doc
+    .image(imageBuffer, 200, 210, { width: 400 })
+    .fillColor("#444444")
+    .fontSize(20)
+    .text(`${firstName}`, 50, 300, { align: "left" })
+    .text(`${lastName}`, 50, 325, { align: "left" })
+    .moveDown();
+}
+function generateRunningTitle(doc: PDFDocument, dateFormatDDMMYYYY) {
+  doc
+    .fillColor("black")
     .fontSize(10)
-    .text("123 Main Street", 200, 65, { align: "right" })
-    .text("New York, NY, 10025", 200, 80, { align: "right" })
+    .text(`Date: ${dateFormatDDMMYYYY}`, 70, 750)
     .moveDown();
 }

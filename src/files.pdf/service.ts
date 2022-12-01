@@ -10,9 +10,15 @@ export async function generatePDFUser(fileName, imageName, userEmail) {
     raw: true,
     nest: true,
   });
-  const { firstName, lastName, id }: any = userOne;
   if (!userOne) {
     throw { message: "No such user exists", statusCode: 404 };
+  }
+  const { firstName, lastName, id }: any = userOne;
+  const findOnePDF = await FilePDF.findOne({
+    where: { userId: id, name: fileName },
+  });
+  if (findOnePDF) {
+    throw { message: "File sweat with this name exists", statusCode: 400 };
   }
   const imageUser = await FileImage.findOne({
     where: { userId: userOne.id, name: imageName },
@@ -29,10 +35,8 @@ export async function generatePDFUser(fileName, imageName, userEmail) {
     imageBuffer
   );
   await FilePDF.create({ userId: id, name: fileName, data: bufferPDFFile });
-  const result = await FilePDF.findOne({
-    where: { name: fileName, userId: id },
-  });
-  console.log(result.data);
-
-  return result.data;
+  return {
+    message: "PDF document generated.",
+    statusCode: 201,
+  };
 }
