@@ -7,7 +7,7 @@ import * as swaggerUI from "swagger-ui-express";
 import * as OpenApiValidator from "express-openapi-validator";
 import * as bodyParser from "body-parser";
 import * as multer from "multer";
-import "../src/models/association.for.models";
+import "./models/association.for.models";
 
 const apiSpec = YAML.load("./src/docs/openApi.yaml");
 const port: number = config.get("app.port") || 5000;

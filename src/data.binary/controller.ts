@@ -1,7 +1,12 @@
-import { FilePDF } from "../models/user.pdf";
+import {
+  FindOneDocDTO,
+  GenerateDataDto,
+  ListDocDTO,
+} from "../types/data.binary";
+import { DataBinary } from "../models/data.binary";
 import { generatePDFUser } from "./service";
 
-export async function generate(req, res) {
+export async function generate(req: GenerateDataDto, res) {
   try {
     const { fileName, imageName, userEmail } = req.body;
     const result = await generatePDFUser(fileName, imageName, userEmail);
@@ -11,11 +16,10 @@ export async function generate(req, res) {
   }
 }
 
-export async function listDocumentUser(req, res) {
+export async function listDocumentUser(req: ListDocDTO, res) {
   try {
     const { id } = req.user;
-    console.log("🚀 ~ listDocumentUser ~ id", id);
-    const result = await FilePDF.findAll({
+    const result = await DataBinary.findAll({
       where: { userId: id },
       attributes: ["name"],
     });
@@ -25,11 +29,11 @@ export async function listDocumentUser(req, res) {
   }
 }
 
-export async function findOnePDFUser(req, res) {
+export async function findOnePDFUser(req: FindOneDocDTO, res) {
   try {
     const { id } = req.user;
     const { fileName } = req.query;
-    const result = await FilePDF.findOne({
+    const result = await DataBinary.findOne({
       where: { userId: id, name: fileName },
     });
     res.status(200).send(result.data);

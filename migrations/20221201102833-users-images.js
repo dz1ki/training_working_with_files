@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("files_image", {
+    await queryInterface.createTable("data_link", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -38,7 +38,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-    await queryInterface.addConstraint("files_image", {
+    await queryInterface.addConstraint("data_link", {
       type: "UNIQUE",
       name: "user_id_name_unique_user_images",
       fields: ["user_id", "name"],
@@ -47,9 +47,9 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.removeConstraint(
-      "files_image",
+      "data_link",
       "user_id_name_unique_user_images"
     );
-    await queryInterface.dropTable("files_image");
+    await queryInterface.dropTable("data_link");
   },
 };

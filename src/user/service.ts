@@ -1,5 +1,11 @@
 import { User } from "../models/user";
-import { generateJwt, hashPassword, parsePassword } from "./helper";
+import {
+  checUniquekUser,
+  generateJwt,
+  hashPassword,
+  checkPassword,
+  checkUser,
+} from "./helper";
 
 export async function registrationUser(
   userEmail: string,
@@ -7,13 +13,7 @@ export async function registrationUser(
   lastName: string,
   passwordUser: string
 ) {
-  const findUser = await User.findOne({ where: { email: userEmail } });
-  if (findUser) {
-    throw {
-      message: "There is already a user with this mail",
-      statusCode: 400,
-    };
-  }
+  await checUniquekUser(userEmail);
   const resultHash = await hashPassword(passwordUser);
   await User.create({
     email: userEmail,
@@ -25,14 +25,8 @@ export async function registrationUser(
 }
 
 export async function authorizationUser(emailUser: string, password: string) {
-  const findUser = await User.findOne({ where: { email: emailUser } });
-  if (!findUser) {
-    throw { message: "No such user exists", statusCode: 400 };
-  }
-  const resultParse = await parsePassword(password, findUser.password);
-  if (!resultParse) {
-    throw { message: "Wrong password", statusCode: 400 };
-  }
+  const findUser = await checkUser(emailUser);
+  await checkPassword(password, findUser.password);
   const token = generateJwt(findUser.id, findUser.email);
   return { message: "User is authorized", statusCode: 200, token };
 }

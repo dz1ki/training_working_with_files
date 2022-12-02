@@ -1,3 +1,5 @@
+import { UserMiddlewaresDTO } from "./common";
+
 export type ResultSaveImage = {
   asset_id?: string;
   public_id?: string;
@@ -20,4 +22,24 @@ export type ResultSaveImage = {
   access_mode?: string;
   original_filename?: string;
   api_key?: string;
+};
+
+export type AddImageDTO = {
+  user: UserMiddlewaresDTO;
+  body: {
+    fileName: string;
+  };
+  files: [
+    {
+      fieldname: string;
+      originalname: string;
+      encoding: string;
+      mimetype: string;
+      buffer: Buffer;
+    }
+  ];
+};
+
+export type FindAllImageDTO = {
+  user: UserMiddlewaresDTO;
 };

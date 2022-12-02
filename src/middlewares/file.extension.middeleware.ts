@@ -1,4 +1,10 @@
-export function fileExtensionMiddeleware(req, res, next) {
+import { AddImageDTO } from "../types/data.link";
+
+export function fileExtensionMiddeleware(
+  req: Pick<AddImageDTO, "files">,
+  res,
+  next
+) {
   try {
     const { mimetype } = req.files[0];
     const result =

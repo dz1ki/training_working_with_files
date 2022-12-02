@@ -160,7 +160,7 @@ paths:
         - bearerAuth: []
       tags:
         - File PDF
-      summary: Find all PDF files user.
+      summary: Find all names PDF files user.
       responses:
         200:
           description: Succes
@@ -173,7 +173,7 @@ paths:
         - bearerAuth: []
       tags:
         - File PDF
-      summary: Find all PDF files user.
+      summary: Find one PDF files user.
       parameters:
         - in: query
           name: fileName

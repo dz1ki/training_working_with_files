@@ -2,7 +2,11 @@ import * as PDFDocument from "pdfkit";
 import { generate } from "./generate.pdf";
 import { getFormatedDate } from "./helper";
 
-export async function generatePDF(firstName, lastName, imageBuffer) {
+export async function generatePDF(
+  firstName: string,
+  lastName: string,
+  imageBuffer: Buffer
+): Promise<Buffer> {
   return new Promise(async (resolve, reject) => {
     const doc: PDFDocument = new PDFDocument({ margin: 20, bufferPages: true });
     const buffers: Buffer[] = [];

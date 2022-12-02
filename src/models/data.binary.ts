@@ -6,20 +6,19 @@ import {
   Model,
 } from "sequelize";
 import { sequelize } from "./index";
-import { User } from "./user";
 
-export class FileImage extends Model<
-  InferAttributes<FileImage>,
-  InferCreationAttributes<FileImage>
+export class DataBinary extends Model<
+  InferAttributes<DataBinary>,
+  InferCreationAttributes<DataBinary>
 > {
   declare id: CreationOptional<number>;
-  declare userId?: User;
+  declare userId?: number;
   declare name: string;
-  declare data: string;
+  declare data: BinaryData;
   declare created_at: CreationOptional<Date>;
   declare updated_at: CreationOptional<Date>;
 }
-FileImage.init(
+DataBinary.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -28,20 +27,20 @@ FileImage.init(
     },
     userId: {
       type: new DataTypes.INTEGER(),
-      allowNull: false,
+      allowNull: true,
       field: "user_id",
-    },
-    data: {
-      type: new DataTypes.STRING(128),
     },
     name: {
       type: new DataTypes.STRING(128),
+    },
+    data: {
+      type: new DataTypes.BLOB(),
     },
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE,
   },
   {
-    tableName: "files_image",
+    tableName: "data_binary",
     sequelize,
     createdAt: "created_at",
     updatedAt: "updated_at",

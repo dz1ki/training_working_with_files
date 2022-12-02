@@ -6,20 +6,19 @@ import {
   Model,
 } from "sequelize";
 import { sequelize } from "./index";
-import { User } from "./user";
 
-export class FilePDF extends Model<
-  InferAttributes<FilePDF>,
-  InferCreationAttributes<FilePDF>
+export class DataLink extends Model<
+  InferAttributes<DataLink>,
+  InferCreationAttributes<DataLink>
 > {
   declare id: CreationOptional<number>;
-  declare userId?: User;
+  declare userId?: number;
   declare name: string;
-  declare data: BinaryData;
+  declare data: string;
   declare created_at: CreationOptional<Date>;
   declare updated_at: CreationOptional<Date>;
 }
-FilePDF.init(
+DataLink.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -28,20 +27,20 @@ FilePDF.init(
     },
     userId: {
       type: new DataTypes.INTEGER(),
-      allowNull: true,
+      allowNull: false,
       field: "user_id",
+    },
+    data: {
+      type: new DataTypes.STRING(128),
     },
     name: {
       type: new DataTypes.STRING(128),
-    },
-    data: {
-      type: new DataTypes.BLOB(),
     },
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE,
   },
   {
-    tableName: "files_pdf",
+    tableName: "data_link",
     sequelize,
     createdAt: "created_at",
     updatedAt: "updated_at",

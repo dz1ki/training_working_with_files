@@ -7,16 +7,16 @@ import {
   NonAttribute,
 } from "sequelize";
 import { sequelize } from ".";
-import { FileImage } from "./user.images";
-import { FilePDF } from "./user.pdf";
+import { DataLink } from "./data.link";
+import { DataBinary } from "./data.binary";
 
 export class User extends Model<
   InferAttributes<User>,
   InferCreationAttributes<User>
 > {
   declare id: CreationOptional<number>;
-  declare images?: NonAttribute<FileImage[]>;
-  declare pdf?: NonAttribute<FilePDF[]>;
+  declare dataLink?: NonAttribute<DataLink[]>;
+  declare dataBinary?: NonAttribute<DataBinary[]>;
   declare password: string;
   declare firstName: string;
   declare lastName: string;

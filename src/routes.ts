@@ -1,6 +1,6 @@
 import * as express from "express";
-import { fileImage } from "./files.image/routes";
-import { filePDF } from "./files.pdf/routes";
+import { fileImage } from "./data.link/routes";
+import { filePDF } from "./data.binary/routes";
 import { users } from "./user/routes";
 
 export const router: express.IRouter = express.Router();

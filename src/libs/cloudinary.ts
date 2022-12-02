@@ -1,7 +1,7 @@
 import * as streamifier from "streamifier";
 import cloudinary from "./index";
 
-export async function saveCloudStorage(buffer, userEmail) {
+export async function saveCloudStorage(buffer: Buffer, userEmail: string) {
   return new Promise(async (resolve, reject) => {
     let cldUploadStream = cloudinary.v2.uploader.upload_stream(
       {

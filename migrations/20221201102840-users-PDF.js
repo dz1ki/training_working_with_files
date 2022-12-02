@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("files_pdf", {
+    await queryInterface.createTable("data_binary", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -36,7 +36,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-    await queryInterface.addConstraint("files_pdf", {
+    await queryInterface.addConstraint("data_binary", {
       type: "UNIQUE",
       name: "user_id_name_unique_user_pdf",
       fields: ["user_id", "name"],
@@ -45,9 +45,9 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.removeConstraint(
-      "files_pdf",
+      "data_binary",
       "user_id_name_unique_user_pdf"
     );
-    await queryInterface.dropTable("files_pdf");
+    await queryInterface.dropTable("data_binary");
   },
 };

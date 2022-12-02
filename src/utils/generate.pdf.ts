@@ -1,8 +1,9 @@
 import * as PDFDocument from "pdfkit";
+
 export async function generate(
-  firstName,
-  lastName,
-  imageBuffer,
+  firstName: string,
+  lastName: string,
+  imageBuffer: Buffer,
   doc: PDFDocument,
   dateFormatDDMMYYYY: string
 ) {
@@ -10,14 +11,19 @@ export async function generate(
   generateBody(doc, firstName, lastName, imageBuffer);
   generateRunningTitle(doc, dateFormatDDMMYYYY);
 }
-function generateHeader(doc) {
+function generateHeader(doc: PDFDocument) {
   doc
     .fillColor("#444444")
     .fontSize(20)
     .text(`Test task working with files!`, 200, 57, { align: "midle" })
     .moveDown();
 }
-function generateBody(doc, firstName, lastName, imageBuffer) {
+function generateBody(
+  doc: PDFDocument,
+  firstName: string,
+  lastName: string,
+  imageBuffer: Buffer
+) {
   doc
     .image(imageBuffer, 200, 210, { width: 400 })
     .fillColor("#444444")
@@ -26,7 +32,7 @@ function generateBody(doc, firstName, lastName, imageBuffer) {
     .text(`${lastName}`, 50, 325, { align: "left" })
     .moveDown();
 }
-function generateRunningTitle(doc: PDFDocument, dateFormatDDMMYYYY) {
+function generateRunningTitle(doc: PDFDocument, dateFormatDDMMYYYY: string) {
   doc
     .fillColor("black")
     .fontSize(10)

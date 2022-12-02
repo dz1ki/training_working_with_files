@@ -1,24 +1,24 @@
-import { FileImage } from "./user.images";
+import { DataLink } from "./data.link";
 import { User } from "./user";
-import { FilePDF } from "./user.pdf";
+import { DataBinary } from "./data.binary";
 
-User.hasMany(FileImage, {
+User.hasMany(DataLink, {
   foreignKey: { name: "user_id" },
   sourceKey: "id",
-  as: "image",
+  as: "dataLink",
 });
-FileImage.belongsTo(User, {
+DataLink.belongsTo(User, {
   foreignKey: "id",
   onDelete: "CASCADE",
   as: "users",
 });
 
-User.hasMany(FilePDF, {
+User.hasMany(DataBinary, {
   foreignKey: { name: "user_id" },
   sourceKey: "id",
-  as: "pdf",
+  as: "dataBinary",
 });
-FilePDF.belongsTo(User, {
+DataBinary.belongsTo(User, {
   foreignKey: "id",
   onDelete: "CASCADE",
   as: "users",
